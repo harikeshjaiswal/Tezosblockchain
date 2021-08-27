@@ -1,0 +1,52 @@
+<mat-toolbar color="primary">
+    <span>Tezos blockchain</span>
+</mat-toolbar>
+
+<div class="example-container mat-elevation-z8">
+    <cdk-virtual-scroll-viewport itemSize="10">
+        <table mat-table [dataSource]="AllTransaction">
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-chip-list>
+                        <mat-chip color='accent' *ngIf="element.type=='transaction'" selected>{{element.type}}
+                        </mat-chip>
+                        <mat-chip color='primary' *ngIf="element.type=='unfreeze'" selected>{{element.type}}
+                        </mat-chip>
+                        <mat-chip *ngIf="element.type=='bake'">{{element.type}}
+                        </mat-chip>
+                    </mat-chip-list>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="sender">
+                <th mat-header-cell *matHeaderCellDef> Address </th>
+                <td mat-cell *matCellDef="let element"> {{element.sender}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="time">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.time | date:'medium' }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="volume">
+                <th mat-header-cell *matHeaderCellDef> AMount XTZ (USD) </th>
+                <td mat-cell *matCellDef="let element"> {{element.volume | currency}} USD</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </cdk-virtual-scroll-viewport>
+    <div class="row pb-5">
+        <div class="col-md-12 p-5">
+            <ngx-spinner bdOpacity=0.9 bdColor="" size="default" color="#581f87" type="ball-pulse-sync"
+                [fullScreen]="false">
+            </ngx-spinner>
+        </div>
+    </div>
+    <div *ngIf="!notEmptyTransaction" class="row pb-5">
+        <div class="col-md-12 d-flex justify-content-center">
+            <div class="text-muted h6 alert alert-secondary p-2">No more items to show</div>
+        </div>
+    </div>
+</div>

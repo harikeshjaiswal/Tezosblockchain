@@ -1,0 +1,14 @@
+.example-container {
+    height: 350px;
+    overflow: auto;
+    margin: 50px 50px 100px 100px;
+}
+
+table {
+    width: 100%;
+}
+
+cdk-virtual-scroll-viewport {
+    height: 50vh;
+    width: 100%;
+}
